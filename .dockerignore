@@ -1,0 +1,19 @@
+# Docker build context
+.git
+.github
+README.md
+LICENSE
+*.md
+
+# Don't copy built artifacts
+linux/
+result/
+*.tar.gz
+
+# IDE files
+.vscode/
+.idea/
+
+# OS files
+.DS_Store
+Thumbs.db

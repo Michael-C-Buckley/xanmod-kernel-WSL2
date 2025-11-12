@@ -1,0 +1,16 @@
+version: '3.8'
+
+services:
+  kernel-builder:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: xanmod-kernel-builder
+    volumes:
+      # Mount the workspace to access built kernel
+      - ./result:/workspace/result
+      - ./linux:/workspace/linux
+    working_dir: /workspace
+    command: ["/workspace/docker-build.sh"]
+    # Uncomment to keep container running for debugging
+    # command: ["sleep", "infinity"]
