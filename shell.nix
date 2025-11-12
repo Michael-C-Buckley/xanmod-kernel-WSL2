@@ -35,6 +35,9 @@ pkgs.mkShell {
     # Optional: For debugging and analysis
     pahole
     dwarves
+
+    # Add ccache for faster rebuilds (optional)
+    ccache
   ];
 
   # Environment variables
@@ -42,14 +45,16 @@ pkgs.mkShell {
     echo "XANMOD WSL KERNEL BUILD SHELL"
     echo "Available tools:"
     echo "  - clang: $(clang --version | head -1)"
+    echo "  - gcc: $(gcc --version | head -1)"
     echo "  - make: $(make --version | head -1)"
     echo "  - flex: $(flex --version)"
     echo "  - bison: $(bison --version)"
     echo ""
     echo "To build the kernel:"
-    echo "  ./build.sh -b MAIN"
+    echo "  ./build.sh -b MAIN              # Uses GCC (recommended for NixOS)"
+    echo "  ./build.sh -b MAIN -j $(nproc)  # Use all CPU cores"
     echo ""
-    echo "To build with more jobs:"
-    echo "  ./build.sh -b MAIN -j $(nproc)"
+    echo "If GCC fails, you can try clang:"
+    echo "  sed -i 's/gcc/clang/' build.sh && ./build.sh -b MAIN"
   '';
 }
